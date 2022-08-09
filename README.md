@@ -1,6 +1,9 @@
-Raft Mod Menu v2.0 - C# DLL Source [Base]
+Ghost Watchers Internal Hack - C# DLL Source [Base]
 
 This is a basic mod menu created in C#. It is a base which you can add your own items to it or modifications. Currently it has the following.
+
+![gw_image1](https://user-images.githubusercontent.com/38970826/183768370-8dd17d68-fed8-4a92-9a43-f58bf8b13b17.PNG)
+
 
 [ESP Menu]
 - Ghost ESP [Box, Label, Bones, Distance, Footprints]
