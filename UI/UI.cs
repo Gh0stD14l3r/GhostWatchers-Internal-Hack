@@ -25,19 +25,19 @@ namespace GhostWatchers.UI
             {
                 MainMenu = GUI.Window(0, MainMenu, MainWindow, db.mTitleShell);
             }
-            if (db.esp_menu)
+            if (db.esp_menu && db.main_menu)
             {
                 ESPMenu = GUI.Window(1, ESPMenu, ESPWindow, db.mTitleShell);
             }
-            if (db.ghost_menu)
+            if (db.ghost_menu && db.main_menu)
             {
                 GhostMenu = GUI.Window(2, GhostMenu, GhostWindow, db.mTitleShell);
             }
-            if (db.player_menu)
+            if (db.player_menu && db.main_menu)
             {
                 PlayerMenu = GUI.Window(3, PlayerMenu, PlayerWindow, db.mTitleShell);
             }
-            if (db.house_menu)
+            if (db.house_menu && db.main_menu)
             {
                 HouseMenu = GUI.Window(4, HouseMenu, HouseWindow, db.mTitleShell);
             }

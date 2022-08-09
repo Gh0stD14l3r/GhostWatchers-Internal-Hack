@@ -37,10 +37,6 @@ namespace GhostWatchers
             {
                 modules.Player.TpOnKey();
             }
-            if (Input.GetKey(KeyCode.Keypad1))
-            {
-                modules.House.OpenAllFaucets();
-            }
             
             Timer += Time.deltaTime; 
             if (Timer >= 5f) 
