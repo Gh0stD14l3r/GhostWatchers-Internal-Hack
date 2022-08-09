@@ -50,3 +50,5 @@ To Inject..
     Select Process and browse to the assembly to inject (RaftHax.dll)
     Use the following settings.. -- Namespace: GhostWatchers -- Class name: Loader -- Method name: init
     Press inject
+
+Credit to Unknowncheats Member #HoppersButPC, We had a joint collaboration in making our dll's for this game.
