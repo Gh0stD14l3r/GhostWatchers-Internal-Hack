@@ -210,3 +210,4 @@ D:\Storage\dotNet Projects\Internal Hacks\Ghost Watchers\obj\Release\GhostWatche
 D:\Storage\dotNet Projects\Internal Hacks\Ghost Watchers\obj\Release\GhostWatchers.csproj.CopyComplete
 D:\Storage\dotNet Projects\Internal Hacks\Ghost Watchers\obj\Release\GhostWatchers.dll
 D:\Storage\dotNet Projects\Internal Hacks\Ghost Watchers\obj\Release\GhostWatchers.pdb
+D:\Storage\dotNet Projects\Internal Hacks\Ghost Watchers\bin\Release\Newtonsoft.Json.dll

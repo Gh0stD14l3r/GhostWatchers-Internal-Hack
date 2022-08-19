@@ -181,7 +181,7 @@ namespace GhostWatchers.UI
             GUILayout.BeginVertical("box");
                 GUILayout.Label($"Ghost Type: {gwBase.ghost.Data.name.Replace("(Clone)", "")}");
                 GUILayout.Label($"Ghost Age: {gwBase.ghost.Data.Age}");
-                GUILayout.Label($"Hunt Distance: [{gwBase.ghost.Data.DistanceForHunt}]");
+                GUILayout.Label($"Hunt Distance: [{gwBase.ghost.Data.DistanceForHunt()}]");
                 GUILayout.Label($"Temperature: [{gwBase.ghost.Data.GetTemperatureValue()}]");
                 GUILayout.Label($"Mood Type: [{gwBase.ghost.Data.Mood}]");
 
