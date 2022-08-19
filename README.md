@@ -47,7 +47,7 @@ To compile..
 To Inject..
 
     Use a Mono injector (Possibly MonoSharpInjector)
-    Select Process and browse to the assembly to inject (RaftHax.dll)
+    Select Process and browse to the assembly to inject (GhostWatchers.dll)
     Use the following settings.. -- Namespace: GhostWatchers -- Class name: Loader -- Method name: init
     Press inject
 
