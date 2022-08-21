@@ -412,6 +412,7 @@
     <Compile Include="modules\ESP Models\Jiangshi.cs" />
     <Compile Include="modules\ESP Models\Poltergeist.cs" />
     <Compile Include="modules\ESP Models\Prototype.cs" />
+    <Compile Include="modules\ESP Models\Puppet.cs" />
     <Compile Include="modules\ESP Models\Vampire.cs" />
     <Compile Include="modules\ESP.cs" />
     <Compile Include="modules\Ghost.cs" />

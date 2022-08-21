@@ -12,7 +12,7 @@ namespace GhostWatchers.UI
 {
     class UI
     {
-        public static Rect MainMenu = new Rect(5f, 5f, 230f, 100f);
+        public static Rect MainMenu = new Rect(5f, 5f, 230f, 120f);
         public static Rect ESPMenu = new Rect(5f, 5f, 300f, 150f);
         public static Rect GhostMenu = new Rect(5f, 5f, 270f, 500f);
         public static Rect PlayerMenu = new Rect(5f, 5f, 270f, 300f);
@@ -74,7 +74,7 @@ namespace GhostWatchers.UI
                     }
                 GUILayout.EndHorizontal();
             GUILayout.EndVertical();
-
+            GUILayout.Label("Download from UnknownCheats.me");
             GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
         }
 

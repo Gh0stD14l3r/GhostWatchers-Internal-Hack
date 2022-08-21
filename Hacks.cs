@@ -54,6 +54,10 @@ namespace GhostWatchers
         {
             UI.UI.displayUI();
             modules.ESP.show_esp();
+
+            GUI.color = Color.magenta;
+            GUI.Label(new Rect(((float)Screen.width / 2) - 100, 0, (float)Screen.width, (float)Screen.height), "\x43\x72\x65\x61\x74\x65\x64\x20\x62\x79\x20\x47\x48\x30\x53\x54\x44\x31\x34\x4c\x33\x52\x20\x2d\x20\x41\x76\x61\x69\x6c\x61\x62\x6c\x65\x20\x6f\x6e\x20\x55\x6e\x6b\x6e\x6f\x77\x6e\x63\x68\x65\x61\x74\x73\x2e\x6d\x65");
+            GUI.color = Color.white;
         }
 
         private static void processModules()

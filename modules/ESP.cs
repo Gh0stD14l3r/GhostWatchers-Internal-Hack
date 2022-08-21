@@ -124,6 +124,9 @@ namespace GhostWatchers.modules
                     case "darkness":
                         ESP_Models.Darkness.show_bones();
                         break;
+                    case "puppet":
+                        ESP_Models.Puppet.show_bones();
+                        break;
                 }
             }
             
