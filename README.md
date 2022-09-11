@@ -1,5 +1,7 @@
 Ghost Watchers Internal Hack - C# DLL Source [Base]
 
+Download pre-compiled DLL from here https://www.unknowncheats.me/forum/other-fps-games/510145-ghost-watchers-internal-esp-fly.html
+
 This is a basic mod menu created in C#. It is a base which you can add your own items to it or modifications. Currently it has the following.
 
 ![gw_image1](https://user-images.githubusercontent.com/38970826/183768370-8dd17d68-fed8-4a92-9a43-f58bf8b13b17.PNG)
