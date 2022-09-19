@@ -36,10 +36,10 @@ namespace GhostWatchers.modules.ESP_Models
         private static Vector3 Billy_LeftUpLeg, Billy_LeftLeg, Billy_LeftFoot;
         private static Vector3 Billy_RightUpLeg, Billy_RightLeg, Billy_RightFoot;
 
-        public static void show_bones() //works
+        public static void show_bones(GhostAI xghost) //works
         {
             int gchecker = 0;
-            Transform[] ghostBones = gwBase.ghost.GetComponentInParent<Donteco.Ghost>().GetComponentInChildren<SkinnedMeshRenderer>().bones;
+            Transform[] ghostBones = xghost.GetComponentInParent<Donteco.Ghost>().GetComponentInChildren<SkinnedMeshRenderer>().bones;
             foreach (Transform b in ghostBones)
             {
                 if (b.name.Contains("Billy_Head"))

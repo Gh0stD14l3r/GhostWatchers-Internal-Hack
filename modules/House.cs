@@ -91,5 +91,38 @@ namespace GhostWatchers.modules
             }
         }
 
+        public static void TurnOnAllCandles()
+        {
+            if (gwBase.candles != null)
+            {
+                foreach (CandleEnvironmentController candle in gwBase.candles)
+                {
+                    if (!candle.IsOn.Value)
+                    {
+                        candle.IsOn.Value = !candle.IsOn.Value;
+                        if (!NetworkManager.IsMasterClient)
+                            candle.IsOn.RegisterLocalChange();
+                    }
+                }
+            }
+        }
+
+        public static void TurnOffAllCandles()
+        {
+            if (gwBase.candles != null)
+            {
+                foreach (CandleEnvironmentController candle in gwBase.candles)
+                {
+                    if (candle.IsOn.Value)
+                    {
+                        candle.IsOn.Value = false;
+                        if (!NetworkManager.IsMasterClient)
+                            candle.IsOn.RegisterLocalChange();
+                        GameAudio.Play(candle.BlowOutFlame, candle.transform.position, 0.3f);
+                    }
+                }
+            }
+        }
+
     }
 }

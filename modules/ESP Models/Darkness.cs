@@ -42,10 +42,10 @@ namespace GhostWatchers.modules.ESP_Models
         // CC_Base_Waist001, CC_Base_R_ThighTwist003, CC_Base_R_ThighTwist004, CC_Base_R_KneeShareBone001, CC_Base_R_CalfTwist004;
         // CC_Base_Waist001, CC_Base_L_ThighTwist003, CC_Base_L_ThighTwist004, CC_Base_L_KneeShareBone001, CC_Base_L_CalfTwist004;
 
-        public static void show_bones() //works
+        public static void show_bones(GhostAI xghost) //works
         {
             int gchecker = 0;
-            Transform[] ghostBones = gwBase.ghost.GetComponentInParent<Donteco.Ghost>().GetComponentInChildren<SkinnedMeshRenderer>().bones;
+            Transform[] ghostBones = xghost.GetComponentInParent<Donteco.Ghost>().GetComponentInChildren<SkinnedMeshRenderer>().bones;
             foreach (Transform b in ghostBones)
             {
                 if (b.name.Contains("CC_Base_Head001"))

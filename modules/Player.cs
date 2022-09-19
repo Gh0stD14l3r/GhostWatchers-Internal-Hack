@@ -16,10 +16,13 @@ namespace GhostWatchers.modules
     {
         public static void GiveMoneyAndExp(int money, int exp)
         {
-            if (gwBase.wallet != null)
-            {
-                gwBase.wallet.AddMoneyAndExp(money, exp);
-            }
+            PlayerPersistentData.AddDollars(money);
+            PlayerPersistentData.AddExp(exp);
+
+            //if (gwBase.wallet != null)
+            //{
+                //gwBase.wallet.AddMoneyAndExp(money, exp);
+            //}
         }
 
         public static void UnlockAllAchievements()

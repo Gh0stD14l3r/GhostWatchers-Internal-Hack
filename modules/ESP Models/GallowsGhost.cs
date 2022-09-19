@@ -30,10 +30,10 @@ namespace GhostWatchers.modules.ESP_Models
         private static Vector3 HipPart1_R, Knee_R, KneePart1_R, Ankle_R;
         private static Vector3 Shoulder_R, ShoulderPart1_R, Elbow_R, ElbowPart1_R, Wrist_R;
         private static Vector3 Shoulder_L, ShoulderPart1_L, Elbow_L, ElbowPart1_L, Wrist_L;
-        public static void show_bones() //working
+        public static void show_bones(GhostAI xghost) //working
         {
             int gchecker = 0;
-            Transform[] ghostBones = gwBase.ghost.GetComponentInParent<Donteco.Ghost>().GetComponentInChildren<SkinnedMeshRenderer>().bones;
+            Transform[] ghostBones = xghost.GetComponentInParent<Donteco.Ghost>().GetComponentInChildren<SkinnedMeshRenderer>().bones;
             foreach (Transform b in ghostBones)
             {
                 if (b.name.Contains("Rope2"))

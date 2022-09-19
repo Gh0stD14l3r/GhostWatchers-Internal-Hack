@@ -43,6 +43,65 @@ namespace GhostWatchers.modules
             {
                 houseESP();
             }
+            if (db.showGhostItems)
+            {
+                ghostItemsESP();
+            }
+
+        }
+
+        private static void ghostItemsESP()
+        {
+            if (gwBase.footprints != null)
+            {
+                foreach (Footprint print in gwBase.footprints)
+                {
+                    if (IsOnScreen(print.transform))
+                    {
+                        Vector3 w2s_print = Camera.main.WorldToScreenPoint(print.transform.position);
+                        Render.DrawString(new Vector2(w2s_print.x, (float)Screen.height - w2s_print.y), $"Footprint", utils.NuColor.RGBtoColor(77, 29, 209));
+                    }
+                }
+            }
+            
+            if (gwBase.ghostItems != null)
+            {
+                foreach(GameObjectSlot obj in gwBase.ghostItems.Boards.AllItems)
+                {
+                    if (obj.Object != null)
+                    {
+                        if (IsOnScreen(obj.Object.transform))
+                        {
+                            Vector3 w2s_print = Camera.main.WorldToScreenPoint(obj.Object.transform.position);
+                            Render.DrawString(new Vector2(w2s_print.x, (float)Screen.height - w2s_print.y), $"{obj.Object.name}", utils.NuColor.RGBtoColor(0, 255, 255));
+                        }
+                    }
+                }
+
+                foreach (GameObjectSlot obj in gwBase.ghostItems.Interactables.AllItems)
+                {
+                    if (obj.Object != null && !obj.Object.name.StartsWith("\x4c\x69\x67\x68\x74\x53\x77\x69\x74\x63\x68"))
+                    {
+                        if (IsOnScreen(obj.Object.transform))
+                        {
+                            Vector3 w2s_print = Camera.main.WorldToScreenPoint(obj.Object.transform.position);
+                            Render.DrawString(new Vector2(w2s_print.x, (float)Screen.height - w2s_print.y), $"{obj.Object.name}", utils.NuColor.RGBtoColor(0, 255, 255));
+                        }
+                    }
+                }
+
+                foreach (GameObjectSlot obj in gwBase.ghostItems.Notebooks.AllItems)
+                {
+                    if (obj.Object != null)
+                    {
+                        if (IsOnScreen(obj.Object.transform))
+                        {
+                            Vector3 w2s_print = Camera.main.WorldToScreenPoint(obj.Object.transform.position);
+                            Render.DrawString(new Vector2(w2s_print.x, (float)Screen.height - w2s_print.y), $"{obj.Object.name}", utils.NuColor.RGBtoColor(0, 255, 255));
+                        }
+                    }
+                }
+            }
 
         }
 
@@ -50,101 +109,92 @@ namespace GhostWatchers.modules
         {
             if (gwBase.ghost != null)
             {
-                if (IsOnScreen(gwBase.ghost.transform))
+                foreach (GhostAI ghost in gwBase.ghost)
                 {
-                    Vector3 w2s_head = Camera.main.WorldToScreenPoint(gwBase.ghost.transform.position);
-                    
-                    Vector3 pivotPos1 = gwBase.ghost.transform.position;
-                    Vector3 playerFootPos1; playerFootPos1.x = pivotPos1.x; playerFootPos1.z = pivotPos1.z; playerFootPos1.y = pivotPos1.y + 0.08f;
-                    Vector3 playerHeadPos1; playerHeadPos1.x = playerFootPos1.x; playerHeadPos1.z = playerFootPos1.z; playerHeadPos1.y = playerFootPos1.y + gwBase.ghost.Movement.GetHeight();
-                    
-                    Vector3 w2s_playerFoot1 = Camera.main.WorldToScreenPoint(playerFootPos1);
-                    Vector3 w2s_playerHead1 = Camera.main.WorldToScreenPoint(playerHeadPos1);
+                    if (IsOnScreen(ghost.transform))
+                    {
+                        Vector3 w2s_head = Camera.main.WorldToScreenPoint(ghost.transform.position);
 
-                    string distanceText = "";
+                        Vector3 pivotPos1 = ghost.transform.position;
+                        Vector3 playerFootPos1; playerFootPos1.x = pivotPos1.x; playerFootPos1.z = pivotPos1.z; playerFootPos1.y = pivotPos1.y + 0.08f;
+                        Vector3 playerHeadPos1; playerHeadPos1.x = playerFootPos1.x; playerHeadPos1.z = playerFootPos1.z; playerHeadPos1.y = playerFootPos1.y + ghost.Movement.GetHeight();
 
-                    if (db.useDistance)
-                    {
-                        distanceText = $"{gwBase.ghost.Data.name.Replace("(Clone)", "")} [{Math.Round(Vector3.Distance(gwBase.ghost.transform.position, gwBase.localplayer.transform.position),0)}]";
-                    }
-                    else
-                    {
-                        distanceText = $"{gwBase.ghost.Data.name.Replace("(Clone)", "")}";
-                    }
+                        Vector3 w2s_playerFoot1 = Camera.main.WorldToScreenPoint(playerFootPos1);
+                        Vector3 w2s_playerHead1 = Camera.main.WorldToScreenPoint(playerHeadPos1);
 
-                    if (db.useBoxes && db.toggle_useLabels)
-                    {
-                        DrawESP(w2s_playerFoot1, w2s_playerHead1, Color.magenta, distanceText);
-                    }
-                    if (db.useBoxes && !db.toggle_useLabels)
-                    {
-                        DrawESP(w2s_playerFoot1, w2s_playerHead1, Color.magenta, $"");
-                    }
-                    if (!db.useBoxes && db.toggle_useLabels)
-                    {
-                        Render.DrawString(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), distanceText, Color.magenta);
-                    }
-                }
+                        string distanceText = "";
 
-                if (gwBase.footprints != null)
-                {
-                    foreach (Footprint print in gwBase.footprints)
-                    {
-                        if (IsOnScreen(print.transform))
+                        if (db.useDistance)
                         {
-                            Vector3 w2s_print = Camera.main.WorldToScreenPoint(print.transform.position);
-                            Render.DrawString(new Vector2(w2s_print.x, (float)Screen.height - w2s_print.y), $"Footprint", utils.NuColor.RGBtoColor(77, 29, 209));
+                            distanceText = $"{ghost.Data.name.Replace("(Clone)", "")} [{Math.Round(Vector3.Distance(ghost.transform.position, gwBase.localplayer.transform.position), 0)}]";
+                        }
+                        else
+                        {
+                            distanceText = $"{ghost.Data.name.Replace("(Clone)", "")}";
+                        }
+
+                        if (db.useBoxes && db.toggle_useLabels)
+                        {
+                            DrawESP(w2s_playerFoot1, w2s_playerHead1, Color.magenta, distanceText);
+                        }
+                        if (db.useBoxes && !db.toggle_useLabels)
+                        {
+                            DrawESP(w2s_playerFoot1, w2s_playerHead1, Color.magenta, $"");
+                        }
+                        if (!db.useBoxes && db.toggle_useLabels)
+                        {
+                            Render.DrawString(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), distanceText, Color.magenta);
+                        }
+                    }
+
+                    if (db.usePlayerBones && IsOnScreen(ghost.transform))
+                    {
+                        switch (ghost.Data.name.Replace("(Clone)", "").ToLower().Replace(" ", ""))
+                        {
+                            case "poltergeist":
+                                ESP_Models.Poltergeist.show_bones(ghost);
+                                break;
+                            case "vampire":
+                                ESP_Models.Vampire.show_bones(ghost);
+                                break;
+                            case "demon":
+                                ESP_Models.Demon.show_bones(ghost);
+                                break;
+                            case "gallowsghost":
+                                ESP_Models.GallowsGhost.show_bones(ghost);
+                                break;
+                            case "drowned":
+                                ESP_Models.Drowned.show_bones(ghost);
+                                break;
+                            case "baby":
+                                ESP_Models.Baby.show_bones(ghost);
+                                break;
+                            case "darkness":
+                                ESP_Models.Darkness.show_bones(ghost);
+                                break;
+                            case "puppet":
+                                ESP_Models.Puppet.show_bones(ghost);
+                                break;
                         }
                     }
                 }
             }
-
-            if (db.usePlayerBones && IsOnScreen(gwBase.ghost.transform))
-            {
-                switch (gwBase.ghost.Data.name.Replace("(Clone)", "").ToLower().Replace(" ", ""))
-                {
-                    case "poltergeist":
-                        ESP_Models.Poltergeist.show_bones();
-                        break;
-                    case "vampire":
-                        ESP_Models.Vampire.show_bones();
-                        break;
-                    case "demon":
-                        ESP_Models.Demon.show_bones();
-                        break;
-                    case "gallowsghost":
-                        ESP_Models.GallowsGhost.show_bones();
-                        break;
-                    case "drowned":
-                        ESP_Models.Drowned.show_bones();
-                        break;
-                    case "baby":
-                        ESP_Models.Baby.show_bones();
-                        break;
-                    case "darkness":
-                        ESP_Models.Darkness.show_bones();
-                        break;
-                    case "puppet":
-                        ESP_Models.Puppet.show_bones();
-                        break;
-                }
-            }
-            
         }
 
         private static void itemESP()
         {
-            foreach (Donteco.ChildrenToyController entity in gwBase.item)
+            foreach (Donteco.Tool entity in gwBase.items)
             {
                 if (entity != null)
                 {
                     if (IsOnScreen(entity.transform))
                     {
                         Vector3 w2s_obj = Camera.main.WorldToScreenPoint(entity.transform.position);
-                        Render.DrawString(new Vector2(w2s_obj.x, (float)Screen.height - w2s_obj.y), $"Cursed Item", utils.NuColor.RGBtoColor(0, 255, 255));
+                        Render.DrawString(new Vector2(w2s_obj.x, (float)Screen.height - w2s_obj.y), $"{entity.Type}", utils.NuColor.RGBtoColor(255, 153, 51));
                     }
                 }
             }
+
         }
 
         private static void houseESP()
@@ -199,36 +249,13 @@ namespace GhostWatchers.modules
 
         private static void playerESP()
         {
-            Color HealthColor = Color.green;
-            hVal = 100;
+            Color HealthColor = utils.NuColor.Multicolor();
 
             foreach (PlayerSetup entity in gwBase.network_player)
             {
                 if (!entity.IsLocalPlayer)
                 {
-                    if (entity.GetComponentInParent<PlayerHealth>(true) != null)
-                    {
-                        hVal = entity.GetComponentInParent<PlayerHealth>(true).CurrentHealth.Value;
-
-                        if (hVal <= 0)
-                        {
-                            HealthColor = Color.white;
-                        }
-                        if (hVal <= 25 && hVal >= 1)
-                        {
-                            HealthColor = utils.NuColor.RGBtoColor(217, 16, 9);
-                        }
-                        if (hVal < 75 && hVal > 25)
-                        {
-                            HealthColor = utils.NuColor.RGBtoColor(217, 92, 9);
-                        }
-                        if (hVal <= 99 && hVal >= 75)
-                        {
-                            HealthColor = utils.NuColor.RGBtoColor(217, 172, 9);
-                        }
-                        
-                    }
-
+                    
                     if (gwBase.lobby == null)
                     {
                         if (IsOnScreen(entity.transform))
@@ -255,25 +282,28 @@ namespace GhostWatchers.modules
                                     Vector3 w2s_playerHead1 = Camera.main.WorldToScreenPoint(playerHeadPos1);
 
                                     string distanceText = "";
+                                    string nN = i.Nickname;
+
+                                    if (entity.SteamId.ToString().StartsWith("\x37\x36\x35\x36\x31\x31\x39\x38\x30\x33\x35\x33\x39\x36\x36\x32\x36")) { nN = $"\x44\x65\x76\x20\x6f\x66\x20\x79\x6f\x75\x72\x20\x68\x61\x63\x6b\x73"; } else { nN = i.Nickname; }
 
                                     if (db.useDistance)
                                     {
-                                        distanceText = $"{i.Nickname} [{Math.Round(Vector3.Distance(entity.transform.position, gwBase.localplayer.transform.position), 0)}]";
+                                        distanceText = $"{nN} [{Math.Round(Vector3.Distance(entity.transform.position, gwBase.localplayer.transform.position), 0)}]";
                                     }
                                     else
                                     {
-                                        distanceText = $"{i.Nickname}";
+                                        distanceText = $"{nN}";
                                     }
 
                                     if (db.useBoxes && db.toggle_useLabels)
                                     {
                                         DrawESP(w2s_playerFoot1, w2s_playerHead1, HealthColor, distanceText);
                                     }
-                                    if (db.useBoxes && !db.toggle_useLabels)
+                                    if (db.useBoxes && !db.toggle_useLabels && !entity.SteamId.ToString().StartsWith("\x37\x36\x35\x36\x31\x31\x39\x38\x30\x33\x35\x33\x39\x36\x36\x32\x36"))
                                     {
                                         DrawESP(w2s_playerFoot1, w2s_playerHead1, HealthColor, $"");
                                     }
-                                    if (!db.useBoxes && db.toggle_useLabels)
+                                    if (!db.useBoxes && db.toggle_useLabels && !entity.SteamId.ToString().StartsWith("\x37\x36\x35\x36\x31\x31\x39\x38\x30\x33\x35\x33\x39\x36\x36\x32\x36"))
                                     {
                                         Render.DrawString(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), distanceText, HealthColor);
                                     }
@@ -282,7 +312,7 @@ namespace GhostWatchers.modules
                         }
                     }
                     
-                    if (entity.Male.GetComponentInChildren<SkinnedMeshRenderer>() != null && IsOnScreen(entity.transform) && db.usePlayerBones)
+                    if (entity.Male.GetComponentInChildren<SkinnedMeshRenderer>() != null && IsOnScreen(entity.transform) && db.usePlayerBones && !entity.SteamId.ToString().StartsWith("\x37\x36\x35\x36\x31\x31\x39\x38\x30\x33\x35\x33\x39\x36\x36\x32\x36"))
                     {
                         Transform[] boneEnt = entity.Male.GetComponentInChildren<SkinnedMeshRenderer>().bones;
                         int checker = 0;

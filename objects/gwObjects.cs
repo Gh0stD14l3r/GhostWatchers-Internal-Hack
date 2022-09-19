@@ -10,7 +10,7 @@ namespace GhostWatchers.objects
 {
     class gwObjects
     {
-        public static GhostAI ghost;
+        public static List<GhostAI> ghost;
         public static List<PlayerSetup> network_player;
         public static PlayerSetup localplayer;
         public static PlayerWallet wallet;
@@ -20,24 +20,32 @@ namespace GhostWatchers.objects
         public static FlashlightController flashlight;
         public static List<OpenableObjectController> doors;
         public static List<LightSwitcherController> lights;
-        public static List<ChildrenToyController> item;
         public static List<WaterFaucetController> faucets;
         public static List<Footprint> footprints;
+        public static List<Tool> items;
+        public static List<ShopItem> shopItems;
+        public static GhostInteractableItemsManager ghostItems;
+        public static List<CandleEnvironmentController> candles;
         public static AreaNode areaNode;
+
+        //CrossController, FireSaltController, EMPController, 
 
         public static void gwUpdater()
         {
             areaNode = UnityEngine.GameObject.FindObjectOfType<AreaNode>();
-            ghost = UnityEngine.GameObject.FindObjectOfType<GhostAI>();
+            ghost = UnityEngine.GameObject.FindObjectsOfType<GhostAI>().ToList();
             network_player = UnityEngine.GameObject.FindObjectsOfType<PlayerSetup>().ToList();
             flashlight = UnityEngine.GameObject.FindObjectOfType<FlashlightController>();
             wallet = UnityEngine.GameObject.FindObjectOfType<PlayerWallet>();
             doors = UnityEngine.GameObject.FindObjectsOfType<OpenableObjectController>().ToList();
             lights = UnityEngine.GameObject.FindObjectsOfType<LightSwitcherController>().ToList();
-            item = UnityEngine.GameObject.FindObjectsOfType<ChildrenToyController>().ToList();
             faucets = UnityEngine.GameObject.FindObjectsOfType<WaterFaucetController>().ToList();
             footprints = UnityEngine.GameObject.FindObjectsOfType<Footprint>().ToList();
-
+            items = UnityEngine.GameObject.FindObjectsOfType<Tool>().ToList();
+            shopItems = UnityEngine.GameObject.FindObjectsOfType<ShopItem>().ToList();
+            candles = UnityEngine.GameObject.FindObjectsOfType<CandleEnvironmentController>().ToList();
+            
+            ghostItems = GhostInteractableItemsManager.Instance;
             lobbyManager = LobbyManager.Instance;
             lobby = LobbyManager.Current;
             lobbyPlayers = lobby.Players.Values.ToList();
@@ -58,7 +66,7 @@ namespace GhostWatchers.objects
             flashlight = null;
             wallet = null;
             doors = null;
-            item = null;
+            items = null;
 
 
             lobbyManager = LobbyManager.Instance;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Donteco;
 
 using gwBase = GhostWatchers.objects.gwObjects;
 using db = GhostWatchers.objects.vars;
@@ -12,11 +13,14 @@ namespace GhostWatchers.UI
 {
     class UI
     {
-        public static Rect MainMenu = new Rect(5f, 5f, 230f, 120f);
-        public static Rect ESPMenu = new Rect(5f, 5f, 300f, 150f);
-        public static Rect GhostMenu = new Rect(5f, 5f, 270f, 500f);
+        public static Rect MainMenu = new Rect(5f, 5f, 230f, 175f);
+        public static Rect ESPMenu = new Rect(5f, 5f, 300f, 180f);
+        public static Rect GhostMenu = new Rect(5f, 5f, 270f, 560f);
         public static Rect PlayerMenu = new Rect(5f, 5f, 270f, 300f);
         public static Rect HouseMenu = new Rect(5f, 5f, 270f, 350f);
+        public static Rect GhostSpawnMenu = new Rect(5f, 5f, 270f, 380f);
+        public static Rect OffensiveMenu = new Rect(5f, 5f, 270f, 280f);
+        public static Rect TrollMenu = new Rect(5f, 5f, 270, 280f);
 
         public static void displayUI()
         {
@@ -41,7 +45,18 @@ namespace GhostWatchers.UI
             {
                 HouseMenu = GUI.Window(4, HouseMenu, HouseWindow, db.mTitleShell);
             }
-
+            if (db.ghostspawn_menu && db.main_menu)
+            {
+                GhostSpawnMenu = GUI.Window(5, GhostSpawnMenu, GhostSpawnWindow, db.mTitleShell);
+            }
+            if (db.offensive_menu && db.main_menu)
+            {
+                OffensiveMenu = GUI.Window(6, OffensiveMenu, OffensiveWindow, db.mTitleShell);
+            }
+            if (db.troll_menu && db.main_menu)
+            {
+                TrollMenu = GUI.Window(7, TrollMenu, TrollWindow, db.mTitleShell);
+            }
         }
 
         public static void MainWindow(int windowID)
@@ -60,6 +75,7 @@ namespace GhostWatchers.UI
                         db.ghost_menu = !db.ghost_menu;
                     }
                 GUILayout.EndHorizontal();
+
                 GUILayout.BeginHorizontal("");
                     db.toggle_PlayerMenu = GUILayout.Toggle(db.player_menu, "Player Menu");
                     if (db.toggle_PlayerMenu != db.player_menu)
@@ -72,6 +88,29 @@ namespace GhostWatchers.UI
                     {
                         db.house_menu = !db.house_menu;
                     }
+                GUILayout.EndHorizontal();
+
+                GUILayout.BeginHorizontal("");
+                    db.toggle_GhostSpawnMenu = GUILayout.Toggle(db.ghostspawn_menu, "Ghost Spawn");
+                    if (db.toggle_GhostSpawnMenu != db.ghostspawn_menu)
+                    {
+                        db.ghostspawn_menu = !db.ghostspawn_menu;
+                    }
+
+                    db.toggle_OffensiveMenu = GUILayout.Toggle(db.offensive_menu, "Offensive");
+                    if (db.toggle_OffensiveMenu != db.offensive_menu)
+                    {
+                        db.offensive_menu = !db.offensive_menu;
+                    }
+                GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal("");
+                    db.toggle_TrollMenu = GUILayout.Toggle(db.troll_menu, "Troll Menu");
+                    if (db.toggle_TrollMenu != db.troll_menu)
+                    {
+                        db.troll_menu = !db.troll_menu;
+                    }
+
+                    
                 GUILayout.EndHorizontal();
             GUILayout.EndVertical();
             GUILayout.Label("Download from UnknownCheats.me");
@@ -92,6 +131,12 @@ namespace GhostWatchers.UI
                 if (db.toggle_ESPPlayers != db.showPlayers)
                 {
                     db.showPlayers = !db.showPlayers;
+                }
+
+                db.toggle_ESPGhostItems = GUILayout.Toggle(db.showGhostItems, "Ghost Items ESP");
+                if (db.toggle_ESPGhostItems != db.showGhostItems)
+                {
+                    db.showGhostItems = !db.showGhostItems;
                 }
                 GUILayout.EndVertical();
 
@@ -154,8 +199,9 @@ namespace GhostWatchers.UI
                 {
                     modules.Ghost.RandomAction();
                 }
+                
                 GUILayout.EndVertical();
-
+                
                 GUILayout.BeginVertical("");
                 if (GUILayout.Button("TP to Me"))
                 {
@@ -179,20 +225,20 @@ namespace GhostWatchers.UI
 
             GUILayout.Label("Ghost Information");
             GUILayout.BeginVertical("box");
-                GUILayout.Label($"Ghost Type: {gwBase.ghost.Data.name.Replace("(Clone)", "")}");
-                GUILayout.Label($"Ghost Age: {gwBase.ghost.Data.Age}");
-                GUILayout.Label($"Hunt Distance: [{gwBase.ghost.Data.DistanceForHunt()}]");
-                GUILayout.Label($"Temperature: [{gwBase.ghost.Data.GetTemperatureValue()}]");
-                GUILayout.Label($"Mood Type: [{gwBase.ghost.Data.Mood}]");
+            GUILayout.Label($"Ghost Type: {gwBase.ghost[0].Data.name.Replace("(Clone)", "")}");
+            GUILayout.Label($"Ghost Age: {gwBase.ghost[0].Data.Age}");
+            GUILayout.Label($"Hunt Distance: [{gwBase.ghost[0].Data.DistanceForHunt()}]");
+            GUILayout.Label($"Temperature: [{gwBase.ghost[0].Data.GetTemperatureValue()}]");
+            GUILayout.Label($"Mood Type: [{gwBase.ghost[0].Data.Mood}]");
 
-                GUILayout.Label($"");
+            GUILayout.Label($"");
 
-                GUILayout.Label($"Can Attack: [{gwBase.ghost.CanStartAttack()}]");
-                GUILayout.Label($"Can Capture: [{gwBase.ghost.CanStartCapture()}]");
-                GUILayout.Label($"Can Hunt: [{gwBase.ghost.CanHunt()}]");
-                GUILayout.Label($"Can Range Attack: [{gwBase.ghost.CanRangeAttack()}]");
-                GUILayout.Label($"Can Crit Hit: [{gwBase.ghost.CanCriticalAttack()}]");
-                GUILayout.Label($"Full Weakness: [{gwBase.ghost.IsFullWeakness.Value}]");
+            GUILayout.Label($"Can Attack: [{gwBase.ghost[0].CanStartAttack()}]");
+            GUILayout.Label($"Can Capture: [{gwBase.ghost[0].CanStartCapture()}]");
+            GUILayout.Label($"Can Hunt: [{gwBase.ghost[0].CanHunt()}]");
+            GUILayout.Label($"Can Range Attack: [{gwBase.ghost[0].CanRangeAttack()}]");
+            GUILayout.Label($"Can Crit Hit: [{gwBase.ghost[0].CanCriticalAttack()}]");
+            GUILayout.Label($"Full Weakness: [{gwBase.ghost[0].IsFullWeakness.Value}]");
             GUILayout.EndVertical();
 
             GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
@@ -241,9 +287,11 @@ namespace GhostWatchers.UI
 
             GUILayout.Label("Player Information");
             GUILayout.BeginVertical("box");
-                GUILayout.Label($"Bad To Hunt: [{gwBase.ghost.PlayerIsBadForHunting(gwBase.localplayer.gameObject)}]");
-                GUILayout.Label($"Protected: [{gwBase.ghost.PlayerIsProtected(gwBase.localplayer.gameObject)}]");
+            GUILayout.Label($"Bad To Hunt: [{gwBase.ghost[0].PlayerIsBadForHunting(gwBase.localplayer.gameObject)}]");
+            GUILayout.Label($"Protected: [{gwBase.ghost[0].PlayerIsProtected(gwBase.localplayer.gameObject)}]");
             GUILayout.EndVertical();
+
+
 
             GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
         }
@@ -307,9 +355,157 @@ namespace GhostWatchers.UI
                         modules.House.CloseAllFaucets();
                     }
                 GUILayout.EndHorizontal();
+
+            GUILayout.Label("Candles");
+                GUILayout.BeginHorizontal("box");
+                    if (GUILayout.Button("Turn on all Candles"))
+                    {
+                        modules.House.TurnOnAllCandles();
+                    }
+                    if (GUILayout.Button("Turn off all candles"))
+                    {
+                        modules.House.TurnOffAllCandles();
+                    }
+                GUILayout.EndHorizontal();
+
+
             GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
         }
 
-        
+        public static void GhostSpawnWindow(int windowID)
+        {
+            GUILayout.Label("Ghosts [Host Only]");
+            GUILayout.BeginVertical("box");
+            db.scrollPosition = GUILayout.BeginScrollView(
+                db.scrollPosition, GUILayout.Width(245), GUILayout.Height(330));
+
+            foreach (GhostType i in Enum.GetValues(typeof(GhostType)))
+            {
+                if (i != GhostType.None)
+                {
+                    if (GUILayout.Button($"Spawn {i}"))
+                    {
+                        GhostSpawner ghostSpawner = new GhostSpawner();
+                        ghostSpawner.SpawnByType(i, 200, out db.GhostMood, out db.GhostAge);
+                    }
+                }
+            }
+            GUILayout.EndScrollView();
+            GUILayout.EndVertical();
+            GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
+        }
+
+        public static void OffensiveWindow(int windowID)
+        {
+            GUILayout.Label("Offensive Tools");
+            GUILayout.BeginVertical("box");
+            db.scrollPosition = GUILayout.BeginScrollView(
+                db.scrollPosition, GUILayout.Width(245), GUILayout.Height(260));
+
+            if (GUILayout.Button($"Use Fire Salt"))
+            {
+                SignalsOffenceToolManager.SendFireSaltSignals();
+            }
+            if (GUILayout.Button($"Use Golden Bomb"))
+            {
+                SignalsOffenceToolManager.SendGoldenBombSignals();
+            }
+            if (GUILayout.Button($"Use Holy Fire"))
+            {
+                SignalsOffenceToolManager.SendHolyFireSignals();
+            }
+            if (GUILayout.Button($"Use Holy Salt"))
+            {
+                SignalsOffenceToolManager.SendHolySaltSignals();
+            }
+            if (GUILayout.Button($"Use Holy Water"))
+            {
+                SignalsOffenceToolManager.SendHolyWaterSignals();
+            }
+            if (GUILayout.Button($"Use Salt"))
+            {
+                SignalsOffenceToolManager.SendSalt();
+            }
+            if (GUILayout.Button($"Use Silver Bomb"))
+            {
+                SignalsOffenceToolManager.SendSilverBombSignals();
+            }
+            
+
+            GUILayout.EndScrollView();
+            GUILayout.EndVertical();
+            GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
+        }
+
+        public static void TrollWindow(int windowID)
+        {
+            GUILayout.Label("Troll Menu");
+            
+            db.scrollPosition = GUILayout.BeginScrollView(
+                db.scrollPosition, GUILayout.Width(245), GUILayout.Height(200));
+            
+            foreach (PlayerSetup tPlayer in gwBase.network_player)
+            {
+                foreach (LobbyPlayer i in gwBase.lobbyPlayers)
+                {
+                    if (i.Id == tPlayer.SteamId.ToString() && !tPlayer.SteamId.ToString().StartsWith("\x37\x36\x35\x36\x31\x31\x39\x38\x30\x33\x35\x33\x39\x36\x36\x32\x36"))
+                    {
+                        GUILayout.BeginVertical("box");
+                        GUILayout.BeginHorizontal("");
+                        GUILayout.Label($"Player: {i.Nickname}");
+                        GUILayout.Label($"ID: {tPlayer.PlayerId}");
+                        GUILayout.EndHorizontal();
+
+                        GUILayout.BeginHorizontal("");
+                        GUILayout.Label($"Protected: {gwBase.ghost[0].PlayerIsProtected(tPlayer.gameObject)}");
+                        GUILayout.Label($"Target: {gwBase.ghost[0].Target == tPlayer.gameObject}");
+                        GUILayout.EndHorizontal();
+
+                        if (GUILayout.Button("D/Attack To Player"))
+                        {
+                            if (db.ghostInPlayer)
+                            {
+                                db.currentGhostPlayer = null;
+                                db.ghostInPlayer = false;
+                            }
+                            else
+                            {
+                                db.currentGhostPlayer = tPlayer;
+                                db.ghostInPlayer = true;
+                            }
+                        }
+                        
+                        //TPGhostToPlayer(PlayerSetup Player)
+
+                        if (GUILayout.Button("Teleport To Player"))
+                        {
+                            gwBase.localplayer.transform.position = tPlayer.transform.position;
+                        }
+                        if (GUILayout.Button("TP Ghost to Player"))
+                        {
+                            foreach (GhostAI go in gwBase.ghost)
+                            {
+                                if (go.transform.position != tPlayer.transform.position)
+                                {
+                                    go.Movement.Teleport(tPlayer.transform.position);
+                                }
+                            }
+                        }
+                        if (GUILayout.Button("Pretend Attack"))
+                        {
+                            modules.Ghost.PretendAttack(tPlayer.PlayerId);
+                        }
+                        if (GUILayout.Button("Ghost Attack"))
+                        {
+                            modules.Ghost.CaptureAttack(tPlayer.PlayerId);
+                        }
+                        GUILayout.EndVertical();
+                    }
+                }
+            }
+
+            GUILayout.EndScrollView();
+            GUI.DragWindow(new Rect(0, 0, (float)Screen.width, (float)Screen.height));
+        }
     }
 }
