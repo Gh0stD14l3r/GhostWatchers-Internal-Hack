@@ -4,7 +4,7 @@ Download pre-compiled DLL from here https://www.unknowncheats.me/forum/other-fps
 
 This is a basic mod menu created in C#. It is a base which you can add your own items to it or modifications. Currently it has the following.
 
-![gw_image1](https://user-images.githubusercontent.com/38970826/183768370-8dd17d68-fed8-4a92-9a43-f58bf8b13b17.PNG)
+![image](https://user-images.githubusercontent.com/38970826/191117533-046deaf2-c788-4f4e-af7e-e1e4a9db8edb.png)
 
 
 [ESP Menu]
